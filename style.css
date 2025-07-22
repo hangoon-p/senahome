@@ -46,10 +46,11 @@ body {
     border: 1px solid #ccc;
     box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
     cursor: grab;
-    user-select: none; /* 드래그 시 텍스트 선택 방지 */
-    background-color: rgba(255, 255, 255, 0.8);
-    resize: both; /* 크기 조절 핸들 표시 */
-    overflow: hidden; /* 내용이 넘치면 숨김 */
+    user-select: none;
+    /* background-color: rgba(255, 255, 255, 0.8); */ /* 이 줄을 주석 처리하거나 투명도를 1로 변경하여 기본 배경색을 완전히 불투명하게 만듭니다. */
+    background-color: white; /* 또는 완전히 불투명한 흰색으로 변경 */
+    resize: both;
+    overflow: hidden;
 }
 
 .draggable:hover {
@@ -88,26 +89,34 @@ body {
     padding: 10px;
     min-width: 50px;
     min-height: 30px;
-    display: flex; /* 텍스트 중앙 정렬 등 */
+    display: flex;
     align-items: center;
     justify-content: center;
     word-break: break-all;
-    background-color: #f8f9fa;
+    background-color: #f8f9fa; /* 글상자 기본 배경색 (옅은 회색) */
+    border: 1px solid #aaa; /* 글상자 테두리 추가/강화 */
 }
 
 .shape {
-    background-color: #6c757d;
+    /* 도형의 배경색을 더 진하게 하거나, opacity를 조절하여 명확히 보이게 합니다. */
+    background-color: #6c757d; /* 현재 설정된 회색 */
+    /* opacity: 1; */ /* 혹시 opacity가 문제라면 1로 설정 */
+    border: 1px solid #555; /* 도형 테두리 추가/강화 */
 }
 
 .rectangle {
     width: 100px;
     height: 80px;
+    /* 필요한 경우 여기에 고유한 배경색이나 테두리 스타일을 추가할 수 있습니다. */
+    /* background-color: teal; */
 }
 
 .circle {
     width: 80px;
     height: 80px;
     border-radius: 50%;
+    /* 필요한 경우 여기에 고유한 배경색이나 테두리 스타일을 추가할 수 있습니다. */
+    /* background-color: purple; */
 }
 
 .character-image img {
