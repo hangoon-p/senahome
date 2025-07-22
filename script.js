@@ -32,6 +32,12 @@ const charSelect = document.getElementById('charSelect');
 const charSearchInput = document.getElementById('charSearch');
 const addCharacterBtn = document.getElementById('addCharacter');
 
+const borderColorPicker = document.getElementById('borderColorPicker');
+const borderWidthInput = document.getElementById('borderWidthInput');
+const applyBorderBtn = document.getElementById('applyBorder');
+const bgColorPicker = document.getElementById('bgColorPicker');
+const applyBgColorBtn = document.getElementById('applyBgColor');
+
 // 관리자 모드 상태를 추적하는 변수
 let isAdminMode = false;
 
@@ -189,6 +195,22 @@ function attachEventListeners(el) {
     }
 }
 
+// --- 색상 및 테두리 적용 함수 ---
+function applyStyleToActiveElement(property, value) {
+    if (!isAdminMode) {
+        alert("관리자 모드에서만 스타일을 변경할 수 있습니다.");
+        return;
+    }
+    const activeElement = document.querySelector('.draggable.active');
+    if (activeElement) {
+        activeElement.style[property] = value;
+        // 변경된 스타일을 data- 속성에 저장하여 나중에 로드 시 반영되게 할 수 있습니다. (고급 기능)
+        // 예: activeElement.setAttribute(`data-style-${property}`, value);
+    } else {
+        alert("먼저 스타일을 변경할 요소를 클릭하여 선택해주세요.");
+    }
+}
+
 // --- 컨트롤 패널 버튼 이벤트 리스너 ---
 
 // 관리자 모드 토글 버튼
@@ -214,7 +236,12 @@ toggleAdminModeBtn.addEventListener('click', () => {
         document.querySelectorAll('.draggable .close-btn').forEach(btn => {
             btn.style.display = isAdminMode ? 'block' : 'none';
         });
-
+        
+        document.querySelectorAll('.controls button, .controls input[type="text"], .controls input[type="number"], .controls input[type="color"], .controls select')
+            .forEach(el => {
+                el.style.display = isAdminMode ? 'inline-block' : 'none';
+            });
+        
         // 글상자의 contenteditable 상태 업데이트
         document.querySelectorAll('.text-box span').forEach(span => {
             span.contentEditable = isAdminMode;
@@ -258,6 +285,18 @@ addCharacterBtn.addEventListener('click', () => {
     } else {
         alert("추가할 캐릭터를 선택해주세요.");
     }
+});
+
+// --- 이벤트 리스너 추가 ---
+applyBorderBtn.addEventListener('click', () => {
+    const color = borderColorPicker.value;
+    const width = borderWidthInput.value;
+    applyStyleToActiveElement('border', `${width}px solid ${color}`);
+});
+
+applyBgColorBtn.addEventListener('click', () => {
+    const color = bgColorPicker.value;
+    applyStyleToActiveElement('backgroundColor', color);
 });
 
 // --- 캐릭터 검색 기능 ---
