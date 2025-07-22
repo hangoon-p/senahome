@@ -6,41 +6,7 @@
     <title>레이아웃 에디터</title>
     <link rel="stylesheet" href="style.css">
 
-
-
-    <script type="module">
-      // Import the functions you need from the SDKs you need
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js"; // X.X.X는 최신 버전으로 변경
-      import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
-
-      // TODO: Add SDKs for Firebase products that you want to use
-      // https://firebase.google.com/docs/web/setup#available-libraries
-    
-      // Your web app's Firebase configuration
-      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-      const firebaseConfig = {
-        apiKey: "AIzaSyD4JSkTdHyjeJD0UkTEDUMevbcvuQ3p4As",
-        authDomain: "sena-f1207.firebaseapp.com",
-        projectId: "sena-f1207",
-        storageBucket: "sena-f1207.firebasestorage.app",
-        messagingSenderId: "610137509735",
-        appId: "1:610137509735:web:86abf306de66d8c7ffa9c2",
-        measurementId: "G-06HNKLJE6W"
-      };
-
-      // Initialize Firebase
-      const app = initializeApp(firebaseConfig);
-      const db = getFirestore(app);
-        
-      // 전역으로 Firebase db 객체 노출 (또는 필요시 함수로 감싸서 사용)
-      window.firebaseDb = db;
-      window.firebaseFirestoreDoc = doc;
-      window.firebaseFirestoreGetDoc = getDoc;
-      window.firebaseFirestoreSetDoc = setDoc;     
-    </script>    
-
-
-</head>
+    </head>
 <body>
     <div class="controls">
         <button id="toggleAdminMode">관리자 모드 토글 (PW)</button>
@@ -63,6 +29,6 @@
     <div class="canvas" id="canvas">
         </div>
 
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </body>
 </html>
