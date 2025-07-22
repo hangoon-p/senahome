@@ -243,11 +243,12 @@ toggleAdminModeBtn.addEventListener('click', () => {
         document.querySelectorAll('.draggable .close-btn').forEach(btn => {
             btn.style.display = isAdminMode ? 'block' : 'none';
         });
-        
-        document.querySelectorAll('.controls button, .controls input[type="text"], .controls input[type="number"], .controls input[type="color"], .controls select')
-            .forEach(el => {
-                el.style.display = isAdminMode ? 'inline-block' : 'none';
-            });
+
+        borderColorPicker.style.display = isAdminMode ? 'inline-block' : 'none';
+        borderWidthInput.style.display = isAdminMode ? 'inline-block' : 'none';
+        applyBorderBtn.style.display = isAdminMode ? 'inline-block' : 'none';
+        bgColorPicker.style.display = isAdminMode ? 'inline-block' : 'none';
+        applyBgColorBtn.style.display = isAdminMode ? 'inline-block' : 'none';
         
         // 글상자의 contenteditable 상태 업데이트
         document.querySelectorAll('.text-box span').forEach(span => {
