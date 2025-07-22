@@ -1,0 +1,129 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    overflow: hidden; /* 캔버스 외 스크롤 방지 */
+}
+
+.controls {
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.controls button, .controls input, .controls select {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.controls button {
+    background-color: #007bff;
+    color: white;
+}
+.controls button:hover {
+    background-color: #0056b3;
+}
+
+.canvas {
+    position: relative;
+    width: 100vw;
+    height: calc(100vh - 60px); /* 컨트롤 바 높이만큼 제외 */
+    background-color: white;
+    border: 1px solid #ddd;
+    overflow: hidden; /* 요소가 캔버스 밖으로 나가지 않도록 */
+}
+
+/* 모든 드래그 가능한 요소의 공통 스타일 */
+.draggable {
+    position: absolute;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    cursor: grab;
+    user-select: none; /* 드래그 시 텍스트 선택 방지 */
+    background-color: rgba(255, 255, 255, 0.8);
+    resize: both; /* 크기 조절 핸들 표시 */
+    overflow: hidden; /* 내용이 넘치면 숨김 */
+}
+
+.draggable:hover {
+    border-color: #007bff;
+}
+
+/* 활성화된 요소 (편집 중) */
+.draggable.active {
+    border: 2px solid #007bff;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+}
+
+.close-btn {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    z-index: 10;
+    display: none; /* 기본적으로 숨김, 관리자 모드에서만 표시 */
+}
+
+.draggable.active .close-btn {
+    display: block; /* 활성화된 요소에서만 표시 */
+}
+
+/* 특정 요소 스타일 */
+.text-box {
+    padding: 10px;
+    min-width: 50px;
+    min-height: 30px;
+    display: flex; /* 텍스트 중앙 정렬 등 */
+    align-items: center;
+    justify-content: center;
+    word-break: break-all;
+    background-color: #f8f9fa;
+}
+
+.shape {
+    background-color: #6c757d;
+}
+
+.rectangle {
+    width: 100px;
+    height: 80px;
+}
+
+.circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.character-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* 이미지 비율 유지 */
+}
+
+/* 사용자 모드 (수정 불가) */
+body.view-mode .draggable {
+    cursor: default;
+    border: none;
+    box-shadow: none;
+    resize: none;
+    background-color: transparent;
+}
+body.view-mode .close-btn {
+    display: none !important;
+}
