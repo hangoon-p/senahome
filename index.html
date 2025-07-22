@@ -33,7 +33,10 @@
       const db = getFirestore(app);
         
       // 전역으로 Firebase db 객체 노출 (또는 필요시 함수로 감싸서 사용)
-      window.firebaseDb = db;        
+      window.firebaseDb = db;
+      window.firebaseFirestoreDoc = doc;
+      window.firebaseFirestoreGetDoc = getDoc;
+      window.firebaseFirestoreSetDoc = setDoc;     
     </script>    
 
 
