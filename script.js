@@ -65,6 +65,13 @@ function createElement(type, content, x, y, width, height, id = generateUUID()) 
     el.setAttribute('data-type', type); // 요소 타입 저장
     el.setAttribute('data-content', content); // 내용 또는 이미지 URL 저장
 
+    if (bgColor) {
+        el.style.backgroundColor = bgColor;
+    }
+    if (border) {
+        el.style.border = border;
+    }
+    
     let innerHTML = '';
     if (type === 'text-box') {
         // 글상자는 contenteditable로 직접 편집 가능하게 함
@@ -322,27 +329,29 @@ charSearchInput.addEventListener('input', (e) => {
 
 // --- 레이아웃 저장 기능 (Firebase Firestore) ---
 saveLayoutBtn.addEventListener('click', async () => {
-    if (!isAdminMode) { // 관리자 모드가 아니면 저장 불가능
+    if (!isAdminMode) {
         alert("관리자 모드에서만 레이아웃을 저장할 수 있습니다.");
         return;
     }
 
     const layoutData = [];
-    // 캔버스 내의 모든 '.draggable' 요소를 순회하며 데이터 추출
     document.querySelectorAll('.draggable').forEach(el => {
         layoutData.push({
-            id: el.getAttribute('data-id'), // 요소의 고유 UUID
-            type: el.getAttribute('data-type'), // 요소 타입 (text-box, rectangle 등)
-            content: el.getAttribute('data-content'), // 내용 또는 이미지 URL
-            x: parseFloat(el.style.left), // X 좌표
-            y: parseFloat(el.style.top), // Y 좌표
-            width: parseFloat(el.style.width), // 너비
-            height: parseFloat(el.style.height) // 높이
+            id: el.getAttribute('data-id'),
+            type: el.getAttribute('data-type'),
+            content: el.getAttribute('data-content'),
+            x: parseFloat(el.style.left),
+            y: parseFloat(el.style.top),
+            width: parseFloat(el.style.width),
+            height: parseFloat(el.style.height),
+            // 👇 이 부분 추가 👇
+            backgroundColor: el.style.backgroundColor || '', // 배경색 저장
+            border: el.style.border || '' // 테두리 스타일 저장
+            // 👆 이 부분 추가 👆
         });
     });
 
     try {
-        // 'layouts' 컬렉션에 'currentLayout' 문서로 저장 (기존 데이터 덮어쓰기)
         await setDoc(doc(db, "layouts", LAYOUT_DOC_ID), { elements: layoutData });
         alert("레이아웃이 성공적으로 저장되었습니다!");
     } catch (e) {
