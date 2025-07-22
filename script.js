@@ -2,8 +2,8 @@
 
 // Firebase SDK 초기화 및 Firestore 관련 함수 임포트
 // 중요: 10.X.X는 실제 사용 버전으로 변경하세요 (예: 12.0.0 또는 Firebase 콘솔이 제공하는 최신 버전).
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.X.X/firebase-app.js";
-import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.X.X/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 // 본인의 Firebase 프로젝트 구성 정보를 여기에 붙여넣으세요.
 // Firebase 콘솔 -> 프로젝트 설정 -> 내 앱 -> 웹 앱 선택 시 확인 가능합니다.
