@@ -215,7 +215,7 @@ function applyStyleToActiveElement(property, value) {
 
 // 관리자 모드 토글 버튼
 toggleAdminModeBtn.addEventListener('click', () => {
-    if !isAdminMode {
+    if (!isAdminMode) {
         const password = prompt("관리자 비밀번호를 입력하세요:");
         // TODO: 실제 서비스에서는 이보다 훨씬 강력한 인증 방식을 사용해야 합니다.
         // 간단한 예시를 위한 임시 비밀번호
