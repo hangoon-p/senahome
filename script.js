@@ -221,7 +221,7 @@ toggleAdminModeBtn.addEventListener('click', () => {
         // 간단한 예시를 위한 임시 비밀번호
     }
     else {
-        password = "aaaa"
+        const password = "aaaa"
     }
     if (password === "aaaa") {
         isAdminMode = !isAdminMode;
