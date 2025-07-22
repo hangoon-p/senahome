@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>레이아웃 에디터</title>
+    <link rel="stylesheet" href="style.css">
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.X.X/firebase-app.js"; // X.X.X는 최신 버전으로 변경
+        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.X.X/firebase-firestore.js";
+
+        // Firebase 구성 객체 (콘솔에서 복사)
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        // Firebase 앱 초기화
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // 전역으로 Firebase db 객체 노출 (또는 필요시 함수로 감싸서 사용)
+        window.firebaseDb = db;
+    </script>
+</head>
+<body>
+    <div class="controls">
+        <button id="toggleAdminMode">관리자 모드 토글 (PW)</button>
+        <button id="saveLayout" style="display: none;">레이아웃 저장</button>
+
+        <input type="text" id="addTextContent" placeholder="글상자 내용">
+        <button id="addTextBox">글상자 추가</button>
+
+        <button id="addRectangle">사각형 추가</button>
+        <button id="addCircle">원 추가</button>
+
+        <select id="charSelect">
+            <option value="images/char1.png">캐릭터1</option>
+            <option value="images/char2.png">캐릭터2</option>
+            </select>
+        <input type="text" id="charSearch" placeholder="캐릭터 검색">
+        <button id="addCharacter">캐릭터 추가</button>
+    </div>
+
+    <div class="canvas" id="canvas">
+        </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
