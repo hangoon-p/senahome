@@ -1,9 +1,24 @@
-// Firebase db 객체와 Firestore 함수들을 window 객체에서 가져옵니다.
-// index.html에서 window.firebaseDb 등으로 전역 노출되었으므로 여기서는 import 없이 직접 사용합니다.
-const db = window.firebaseDb;
-const doc = window.firebaseFirestoreDoc;
-const getDoc = window.firebaseFirestoreGetDoc;
-const setDoc = window.firebaseFirestoreSetDoc;
+// script.js
+
+// Firebase SDK 초기화 및 Firestore 관련 함수 임포트
+// 중요: 10.X.X는 실제 사용 버전으로 변경하세요 (예: 12.0.0 또는 Firebase 콘솔이 제공하는 최신 버전).
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.X.X/firebase-app.js";
+import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.X.X/firebase-firestore.js";
+
+// 본인의 Firebase 프로젝트 구성 정보를 여기에 붙여넣으세요.
+// Firebase 콘솔 -> 프로젝트 설정 -> 내 앱 -> 웹 앱 선택 시 확인 가능합니다.
+const firebaseConfig = {
+    apiKey: "AIzaSyD4JSkTdHyjeJD0UkTEDUMevbcvuQ3p4As",
+    authDomain: "sena-f1207.firebaseapp.com",
+    projectId: "sena-f1207",
+    storageBucket: "sena-f1207.firebasestorage.app",
+    messagingSenderId: "610137509735",
+    appId: "1:610137509735:web:86abf306de66d8c7ffa9c2"
+};
+
+// Firebase 앱 초기화 및 Firestore 인스턴스 가져오기
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 // DOM 요소들을 가져옵니다.
 const canvas = document.getElementById('canvas');
@@ -298,7 +313,7 @@ async function loadLayout() {
     
     try {
         // 'layouts' 컬렉션의 'currentLayout' 문서 참조
-        const docRef = doc(db, "layouts", LAYOUT_DOC_ID);
+        const docRef = doc(db, "layouts", LAYOUT_DOC_ID); // doc 함수를 직접 사용
         const docSnap = await getDoc(docRef); // getDoc 함수를 직접 사용
 
         if (docSnap.exists()) {
@@ -318,6 +333,7 @@ async function loadLayout() {
 }
 
 // --- 페이지 로드 시 초기 설정 ---
+// DOMContentLoaded 이벤트 리스너는 HTML 파싱이 완료된 후에 실행됩니다.
 document.addEventListener('DOMContentLoaded', () => {
     // 페이지 로드 시 레이아웃을 Firebase에서 불러옵니다.
     loadLayout();
