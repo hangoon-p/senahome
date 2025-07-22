@@ -1,5 +1,9 @@
-// Firebase db 객체를 index.html에서 window.firebaseDb로 노출했으므로, 여기서는 단순히 가져와서 사용합니다.
+// Firebase db 객체와 Firestore 함수들을 window 객체에서 가져옵니다.
+// index.html에서 window.firebaseDb 등으로 전역 노출되었으므로 여기서는 import 없이 직접 사용합니다.
 const db = window.firebaseDb;
+const doc = window.firebaseFirestoreDoc;
+const getDoc = window.firebaseFirestoreGetDoc;
+const setDoc = window.firebaseFirestoreSetDoc;
 
 // DOM 요소들을 가져옵니다.
 const canvas = document.getElementById('canvas');
@@ -56,7 +60,6 @@ function createElement(type, content, x, y, width, height, id = generateUUID()) 
          // 관리자 모드인 경우 기본적으로 X 버튼 표시
         el.querySelector('.close-btn').style.display = 'block';
     }
-
 
     canvas.appendChild(el); // 캔버스에 요소 추가
     attachEventListeners(el); // 생성된 요소에 이벤트 리스너 부착
@@ -116,7 +119,7 @@ function attachEventListeners(el) {
         el.style.cursor = isResizing ? 'se-resize' : 'grabbing';
     });
 
-    // 드래그/크기 조절 중 (mousemove)
+    // 드래그 또는 크기 조절 중 (mousemove)
     canvas.addEventListener('mousemove', (e) => {
         if (!isAdminMode || (!isDragging && !isResizing)) return;
 
@@ -144,7 +147,7 @@ function attachEventListeners(el) {
         }
     });
 
-    // 드래그/크기 조절 종료 (mouseup)
+    // 드래그 또는 크기 조절 종료 (mouseup)
     canvas.addEventListener('mouseup', () => {
         isDragging = false;
         isResizing = false;
@@ -203,7 +206,9 @@ toggleAdminModeBtn.addEventListener('click', () => {
         });
 
         alert(`관리자 모드: ${isAdminMode ? '활성화' : '비활성화'}`);
-        loadLayout(); // 모드 전환 후 레이아웃 다시 로드 (혹시 모를 오류 방지 및 상태 동기화)
+        // 모드 전환 후 레이아웃 다시 로드 (혹시 모를 오류 방지 및 상태 동기화)
+        // 이 부분은 isAdminMode 변경 후 마지막에 호출되어야 정확한 상태로 UI가 그려집니다.
+        loadLayout(); 
     } else if (password !== null) { // '취소' 버튼을 누른 경우를 제외
         alert("비밀번호가 틀렸습니다.");
     }
@@ -294,10 +299,7 @@ async function loadLayout() {
     try {
         // 'layouts' 컬렉션의 'currentLayout' 문서 참조
         const docRef = doc(db, "layouts", LAYOUT_DOC_ID);
-        const docSnap = await firebase.firestore.getDoc(docRef); // firebase.firestore.getDoc 대신 getDoc 사용 (위에서 import 했으므로)
-        // getDoc 함수는 import 된 상태이므로 바로 getDoc(docRef)
-        const docSnap = await getDoc(docRef);
-
+        const docSnap = await getDoc(docRef); // getDoc 함수를 직접 사용
 
         if (docSnap.exists()) {
             const data = docSnap.data();
@@ -311,7 +313,7 @@ async function loadLayout() {
         }
     } catch (e) {
         console.error("레이아웃 불러오기 중 오류 발생:", e);
-        alert("레이아웃을 불러오는 데 실패했습니다.");
+        alert("레이아웃을 불러오는 데 실패했습니다. Firebase 보안 규칙을 확인해주세요.");
     }
 }
 
@@ -347,6 +349,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // 전역 error 핸들링 (혹시 모를 오류 대비)
     window.addEventListener('error', (event) => {
         console.error('Unhandled error:', event.error);
-        // alert(`오류 발생: ${event.message}`); // 사용자에게 알릴 필요는 없을 수 있음
+        // alert(`오류 발생: ${event.message}`); // 사용자에게 알릴 필요는 없을 수 있습니다.
     });
 });
