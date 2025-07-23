@@ -8,12 +8,12 @@ import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/fireb
 // 본인의 Firebase 프로젝트 구성 정보를 여기에 붙여넣으세요.
 // Firebase 콘솔 -> 프로젝트 설정 -> 내 앱 -> 웹 앱 선택 시 확인 가능합니다.
 const firebaseConfig = {
-    apiKey: "AIzaSyD4JSkTdHyjeJD0UkTEDUMevbcvuQ3p4As",
-    authDomain: "sena-f1207.firebaseapp.com",
-    projectId: "sena-f1207",
-    storageBucket: "sena-f1207.firebasestorage.app",
-    messagingSenderId: "610137509735",
-    appId: "1:610137509735:web:86abf306de66d8c7ffa9c2"
+    apiKey: "",
+    authDomain: "",
+    projectId: "",
+    storageBucket: "",
+    messagingSenderId: "",
+    appId: ""
 };
 
 // Firebase 앱 초기화 및 Firestore 인스턴스 가져오기
